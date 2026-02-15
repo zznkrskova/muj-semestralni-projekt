@@ -18,14 +18,17 @@ Aplikace využívá **SQLite** (soubor `planner.db`) a GUI nad **PySide6/Qt**.
 Doporučený postup na čistém systému:
 
 ```bash
-# 1) vytvoření a aktivace virtuálního prostředí
+# 1) vytvoření a aktivace virtuálního prostředí (není nutné)
 python -m venv .venv
 # Windows
 .venv\Scripts\activate
 # Linux/macOS
 # source .venv/bin/activate
 
-# 2) instalace závislostí
+# 2) databázi možno otevřít přímo v pythonu pomocí
+sqlite3  nebo použít externí aplikaci
+
+# 3) instalace závislostí
 pip install -r requirements.txt
 ```
 
