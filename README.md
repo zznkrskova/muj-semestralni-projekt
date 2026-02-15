@@ -26,7 +26,7 @@ python -m venv .venv
 # source .venv/bin/activate
 
 # 2) databázi možno otevřít přímo v pythonu
-sqlite3 nebo použít externí aplikaci
+SQLite Viewer, sqlite3 nebo použít externí aplikaci
 
 # 3) instalace závislostí
 pip install -r requirements.txt
