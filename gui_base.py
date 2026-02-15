@@ -149,24 +149,29 @@ class BaseActivityDialog(QDialog):
         type_layout.addWidget(QLabel("Typ odpočinku:"))
         self.rest_type_combo = QComboBox()
         self.rest_type_combo.addItems(["Bez odpočinku", "Fyzický", "Psychický"])
-        self.rest_type_combo.currentTextChanged.connect(self.on_rest_type_changed)
-
-        if rest_type == "physical":
-            self.rest_type_combo.setCurrentText("Fyzický")
-        elif rest_type == "mental":
-            self.rest_type_combo.setCurrentText("Psychický")
-        else:
-            self.rest_type_combo.setCurrentText("Bez odpočinku")
-
-        type_layout.addWidget(self.rest_type_combo)
-        rest_layout.addLayout(type_layout)
 
         amount_layout = QHBoxLayout()
         amount_layout.addWidget(QLabel("Intenzita odpočinku:"))
         self.rest_amount_spin = QSpinBox()
         self.rest_amount_spin.setRange(1, 5)
         self.rest_amount_spin.setValue(rest_amount if rest_amount > 0 else 1)
-        self.rest_amount_spin.setEnabled(rest_type in ("physical", "mental"))
+        amount_layout.addWidget(self.rest_amount_spin)
+
+        if rest_type == "physical":
+            initial_text = "Fyzický"
+        elif rest_type == "mental":
+            initial_text = "Psychický"
+        else:
+            initial_text = "Bez odpočinku"
+
+        self.rest_type_combo.blockSignals(True)
+        self.rest_type_combo.setCurrentText(initial_text)
+        self.rest_type_combo.blockSignals(False)
+        self.rest_type_combo.currentTextChanged.connect(self.on_rest_type_changed)
+        self.on_rest_type_changed()
+
+        type_layout.addWidget(self.rest_type_combo)
+        rest_layout.addLayout(type_layout)
         amount_layout.addWidget(self.rest_amount_spin)
         rest_layout.addLayout(amount_layout)
 
