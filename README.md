@@ -25,8 +25,8 @@ python -m venv .venv
 # Linux/macOS
 # source .venv/bin/activate
 
-# 2) databázi možno otevřít přímo v pythonu pomocí
-sqlite3  nebo použít externí aplikaci
+# 2) databázi možno otevřít přímo v pythonu
+sqlite3 nebo použít externí aplikaci
 
 # 3) instalace závislostí
 pip install -r requirements.txt
