@@ -810,39 +810,7 @@ class MainWindow(QMainWindow):
         self.selected_widget = None
 
         activities = get_activities_for_day(self.date)
-
-        # Filtruj dlouhodobé aktivity, které se překrývají s jednorázovými
-        filtered_activities = []
-        one_time_activities = [a for a in activities if a[9] == 0]  # jednorázové
-        recurring_activities = [a for a in activities if a[9] == 1]  # dlouhodobé
-
-        # Přidej všechny jednorázové aktivity
-        filtered_activities.extend(one_time_activities)
-
-        # Přidej jen ty dlouhodobé, které se nepřekrývají s jednorázovými
-        for rec_act in recurring_activities:
-            has_conflict = False
-            rec_start = rec_act[3] * 60 + rec_act[4]
-            rec_end = rec_act[5] * 60 + rec_act[6]
-
-            # Přeskoč celodenní dlouhodobé aktivity
-            if rec_start == 0 and rec_end == 1439:
-                filtered_activities.append(rec_act)
-                continue
-
-            for one_act in one_time_activities:
-                one_start = one_act[3] * 60 + one_act[4]
-                one_end = one_act[5] * 60 + one_act[6]
-
-                # Pokud se překrývají, přeskoč dlouhodobou aktivitu
-                if not (rec_end <= one_start or rec_start >= one_end):
-                    has_conflict = True
-                    break
-
-            if not has_conflict:
-                filtered_activities.append(rec_act)
-
-        sorted_activities = self.sort_activities(filtered_activities)
+        sorted_activities = self.sort_activities(activities)
 
         if not sorted_activities:
             empty_label = QLabel("Žádné aktivity pro tento den")
